@@ -37,7 +37,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor='let product of products'>
+                <tr *ngFor='let product of filteredProducts'>
                     <!--ngFor directive note:- for..of(iterating the objects) vs for..in(iterating the index)-->
                     <td>
                         <img *ngIf='showImage' 
@@ -50,10 +50,13 @@
                         <img src='http://openclipart.org/{{product.imageUrl}}'>-->
                     </td>
                     <td>{{product.productName}}</td>
-                    <td>{{product.productCode | lowercase}}</td>
+                    <td>{{product.productCode | lowercase | convertToSpaces: '-'}}</td>
                     <td>{{product.releaseDate}}</td>
                     <td>{{product.price | currency}}</td><!--or currency:'USD':'symbol':'1.2-2'-->
-                    <td>{{product.starRating}}</td>
+                    <td>
+                        <pm-star [rating] = 'product.starRating' 
+                                 (ratingClicked) = 'onRatingClicked($event)'></pm-star> <!--[]property binding && ()event binding--> 
+                    </td>
                 </tr>
             </tbody>
         </table>
