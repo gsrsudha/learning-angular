@@ -49,7 +49,7 @@
                         <!--or use interpolation as follow
                         <img src='http://openclipart.org/{{product.imageUrl}}'>-->
                     </td>
-                    <td>{{product.productName}}</td>
+                    <td><a [routerLink]="['/products', product.productId]">{{product.productName}}</a></td>
                     <td>{{product.productCode | lowercase | convertToSpaces: '-'}}</td>
                     <td>{{product.releaseDate}}</td>
                     <td>{{product.price | currency}}</td><!--or currency:'USD':'symbol':'1.2-2'-->
