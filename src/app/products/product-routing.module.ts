@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { ProductListComponent } from './product-list.component';
 import { ProductDetailGuard } from './product-detail.guard';
 import { ProductDetailComponent } from './product-detail.component';
+import { ProductEditComponent } from './product-edit.component';
+import { ProductEditGuard } from './product-edit.guard';
 
 @NgModule({
   imports: [
@@ -12,7 +14,10 @@ import { ProductDetailComponent } from './product-detail.component';
       {path:'products', component: ProductListComponent},
       {path: 'products/:id', 
         canActivate: [ProductDetailGuard],
-        component: ProductDetailComponent}
+        component: ProductDetailComponent},
+      {path: 'productEdit/:id', 
+        canDeactivate: [ProductEditGuard],
+        component: ProductEditComponent}
     ])
   ],
   declarations: [],

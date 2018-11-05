@@ -1,0 +1,135 @@
+<div class="card">
+  <div class="card-header">
+    Edit Product
+  </div>
+
+  <div class="card-body">
+    <form novalidate
+          autocomplete="off"
+          [formGroup]="productForm"
+          (ngSubmit)="save()">
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="productName">Product Name</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="productName"
+                 type="text"
+                 placeholder="New Product"
+                 formControlName="productName"
+                 [ngClass]="{'is-invalid': (productForm.get('productName').touched || productForm.get('productName').dirty) && !productForm.get('productName').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="productForm.get('productName').errors?.required">
+              Please enter the product name.
+            </span>
+            <span *ngIf="productForm.get('productName').errors?.minlength">
+              The product name is not valid.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="productCode">Product Code</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="productCode"
+                 type="text"
+                 placeholder="Product Code (required)"
+                 formControlName="productCode"
+                 [ngClass]="{'is-invalid': (productForm.get('productCode').touched || productForm.get('productCode').dirty) && !productForm.get('productCode').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="productForm.get('productCode').errors?.required">
+              Please enter the product code.
+            </span>
+            <span *ngIf="productForm.get('productCode').errors?.maxlength">
+              The product code must not be longer than 50 characters.
+            </span>
+          </span>
+        </div>
+      </div>
+     
+      <div class="form-group row">
+            <label class="col-md-2 control-label"
+                    for="starRatingId">Rating</label>
+            <div class="col-md-8">
+              <input class="form-control"
+                     id="starRatingId"
+                     type="number"
+                     formControlName="starRating"
+                     [ngClass]="{'is-invalid': (productForm.get('starRating').touched || productForm.get('starRating').dirty) && !productForm.get('starRating').valid}">
+              <span class="help-block" *ngIf="(productForm.get('starRating').touched || productForm.get('starRating').dirty) && productForm.get('starRating').errors">
+                    <span *ngIf="productForm.get('starRating').errors.range">
+                            Please rate your experience from 1 to 5.
+                    </span>
+              </span>
+            </div>
+      </div>
+
+      <div formArrayName = "tags">
+        <div class="row">
+          <div class="col-md-1">
+            <span>
+              <button class="btn btn-outline-secondary"
+                      type="button"                      
+                      (click)="addTag()">Add Tag</button>
+            </span>
+          </div>
+        </div>
+        <div class="form-group row"
+            *ngFor="let tag of tags.controls; let i = index">
+          <label class="col-md-2 control-label"
+                 [attr.for]="i">Tag</label>
+            <div class="col-md-6">
+              <input class="form-control"
+                      [id]="i"
+                      type="text"
+                      placeholder="Tag"
+                      [formControlName]="i">
+            </div>
+            <button class="col-md-2 btn btn-outline-warning"
+                    type="button"
+                    (click)="deleteTag(i)">Delete Tag</button>          
+        </div>  
+      </div>  
+
+      <div class="form-group row">
+          <label class="col-md-2 control-label"
+                  for="description">Description</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="description"
+                   type="text"
+                   formControlName="description"
+                   [ngClass]="{'is-invalid': (productForm.get('description').touched || productForm.get('description').dirty) && !productForm.get('description').valid}">
+            <span class="help-block" *ngIf="(productForm.get('description').touched || productForm.get('description').dirty) && productForm.get('description').errors">
+                  <span *ngIf="productForm.get('description').errors">
+                          Please enter a valid description.
+                  </span>
+            </span>
+          </div>
+        </div>
+  
+      <div class="form-group row">
+        <div class="col-md-4">
+          <span>
+            <button class="btn btn-primary"
+                    type="submit"
+                    [disabled]="!productForm.valid">
+              Save
+            </button>
+          </span> &nbsp;
+          <span>
+            <button class="btn btn-default"
+                    type="button"
+                    (click) = "populateTestData()">
+              Test Data
+            </button>
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
