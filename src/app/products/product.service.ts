@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError, tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { Observable, throwError, of } from "rxjs";
+import { catchError, tap, map } from 'rxjs/operators';
 
 import { IProduct } from "./product";
 
@@ -9,7 +9,7 @@ import { IProduct } from "./product";
   providedIn: 'root'
 })
 export class ProductService {
-    private productUrl = 'api/products/products.json';
+    private productUrl = 'api/products';
 
     constructor(private http: HttpClient) {}
 
