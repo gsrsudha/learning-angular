@@ -34,7 +34,14 @@ export class ProductService {
     }
 
     createProduct(product: IProduct): Observable<IProduct> {
-      return of(this.initializeProduct());
+      const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+      product.id = null;
+      return this.http.post<IProduct>(this.productUrl, product, { headers: headers})
+        .pipe(
+          tap(data => console.log('createProduct:' + JSON.stringify(data))),
+          catchError(this.handleError)
+        );
     }
 
     updateProduct(product: IProduct): Observable<IProduct>  {
