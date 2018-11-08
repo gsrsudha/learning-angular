@@ -31,7 +31,24 @@ export class ProductService {
         tap(data => console.log('getProduct ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
-  }
+    }
+
+    createProduct(product: IProduct): Observable<IProduct> {
+      return of(this.initializeProduct());
+    }
+
+    updateProduct(product: IProduct): Observable<IProduct>  {
+      const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+      const url = `${this.productUrl}/${product.id}`;
+      return this.http.put<IProduct>(url, product, {headers: headers})
+          .pipe(
+            tap(() => console.log('update product: ' + product.id)),
+            //Return the product on an update
+            map(() => product),
+            catchError(this.handleError)
+          );
+    }
 
     private handleError(err: HttpErrorResponse) {
       let errorMessage = '';

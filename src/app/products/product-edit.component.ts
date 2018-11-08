@@ -97,4 +97,43 @@ export class ProductEditComponent implements OnInit {
     this.productForm.setControl('tags', this.fb.array(this.product.tags || []));
   }
 
+  editProduct(product: IProduct): void {
+    this.productService.updateProduct(product)
+        .subscribe(
+          () => this.onSaveComplete(),
+          (error: any) => this.errorMessage = <any> error
+        );
+  }
+
+  saveProduct() {
+    if(this.productForm.valid) {
+      if(this.productForm.dirty) {
+        const p = {...this.product, ...this.productForm.value};
+
+        if(p.id === 0) {
+          this.productService.createProduct(p)
+              .subscribe(
+                () => this.onSaveComplete(),
+                (error: any) => this.errorMessage = <any> error
+              );
+        } else {
+          this.productService.updateProduct(p)
+          .subscribe(
+            () => this.onSaveComplete(),
+            (error: any) => this.errorMessage = <any> error
+          );
+        }
+      } else {
+        this.onSaveComplete();
+      }
+    } else {
+      this.errorMessage = 'Please correct the validation errors.';
+    }
+  }
+
+  onSaveComplete() {
+    //reset the form to clear the flags
+    this.productForm.reset();
+    this.router.navigate(['/products']);
+  }
 }
