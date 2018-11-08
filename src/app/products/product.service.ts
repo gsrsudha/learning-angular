@@ -57,6 +57,17 @@ export class ProductService {
           );
     }
 
+    deleteProduct(id: number): Observable<{}> {
+      const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+      const url = `${this.productUrl}/${id}`;
+      return this.http.delete<IProduct>(url,  {headers: headers })
+        .pipe(
+          tap(data => console.log('deleted product:' + id)),
+          catchError(this.handleError)
+        );
+    }
+
     private handleError(err: HttpErrorResponse) {
       let errorMessage = '';
       if (err.error instanceof ErrorEvent) {

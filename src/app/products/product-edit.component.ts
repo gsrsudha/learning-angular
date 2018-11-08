@@ -131,6 +131,21 @@ export class ProductEditComponent implements OnInit {
     }
   }
 
+  deleteProduct(): void {
+    if( this.product.id === 0 ) {
+      //Don't delete, it was never saved.
+      this.onSaveComplete();
+    } else {
+      if(confirm(`Really delete the product: ${this.product.productName}?`)) {
+        this.productService.deleteProduct(this.product.id)
+            .subscribe(
+              () => this.onSaveComplete(),
+              (error: any) => this.errorMessage = <any> error
+            );
+      }
+    }
+  }
+
   onSaveComplete() {
     //reset the form to clear the flags
     this.productForm.reset();
