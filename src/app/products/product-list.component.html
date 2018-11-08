@@ -50,7 +50,7 @@
                         <!--or use interpolation as follow
                         <img src='http://openclipart.org/{{product.imageUrl}}'>-->
                     </td>
-                    <td><a [routerLink]="['/products', product.productId]">{{product.productName}}</a></td>
+                    <td><a [routerLink]="['/products', product.id]">{{product.productName}}</a></td>
                     <td>{{product.productCode | lowercase | convertToSpaces: '-'}}</td>
                     <td>{{product.releaseDate}}</td>
                     <td>{{product.price | currency}}</td><!--or currency:'USD':'symbol':'1.2-2'-->
@@ -58,7 +58,7 @@
                         <pm-star [rating] = 'product.starRating' 
                                  (ratingClicked) = 'onRatingClicked($event)'></pm-star> <!--[]property binding && ()event binding--> 
                     </td>
-                    <td><button class="btn btn-primary" [routerLink]="['/productEdit', product.productId]">Edit</button></td>
+                    <td><button class="btn btn-primary" [routerLink]="['/productEdit', product.id]">Edit</button></td>
                 </tr>
             </tbody>
         </table>

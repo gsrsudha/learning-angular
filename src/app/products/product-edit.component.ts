@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ValidatorFn, AbstractControl, Validators, FormA
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IProduct } from './product';
+import { ProductService } from './product.service';
 
 function ratingRange(min: number, max: number) : ValidatorFn{
   return (c: AbstractControl): {[key: string]: boolean} | null => {
@@ -19,7 +20,7 @@ function ratingRange(min: number, max: number) : ValidatorFn{
   styleUrls: ['./product-edit.component.css']
 })
 export class ProductEditComponent implements OnInit {
-  pageTitle: string = 'Product Edit';
+  pageTitle: string = 'Edit product';
   errorMessage: string;
   productForm: FormGroup;
   
@@ -32,7 +33,8 @@ export class ProductEditComponent implements OnInit {
 
   constructor(private fb: FormBuilder, 
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private productService: ProductService) { }
  
   ngOnInit() {
     this.productForm = this.fb.group({
@@ -66,9 +68,33 @@ export class ProductEditComponent implements OnInit {
   }
 
   getProduct(id: number): void {
-    
+    this.productService.getProduct(id)
+        .subscribe(
+          (product: IProduct) => this.displayProduct(product),
+          (error: any) => this.errorMessage = <any>error
+        );
   }
 
-  populateTestData(): void {}
+  displayProduct(product: IProduct): void {
+    if(this.productForm) {
+      this.productForm.reset();
+    }
+    this.product = product;
+
+    if(this.product.id === 0) {
+      this.pageTitle = 'Add Product';
+    } else {
+      this.pageTitle = `Edit Product : ${this.product.productName}`;
+    }
+
+    //update the data on the form
+    this.productForm.patchValue({
+      productName: this.product.productName,
+      productCode: this.product.productCode,
+      description: this.product.description,
+      starRating: this.product.starRating
+    });
+    this.productForm.setControl('tags', this.fb.array(this.product.tags || []));
+  }
 
 }
