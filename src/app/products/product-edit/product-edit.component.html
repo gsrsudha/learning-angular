@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body">
+    <div class="wizard">
+      <a [routerLink] = "['info']">Basic Information</a>
+      <a [routerLink] = "['info']">Search Tags</a>
+    </div>
+  
+    <router-outlet></router-outlet>
+    <div class="form-group row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          <span>
+            <button class="btn btn-primary"
+                    type="submit"
+                    (click) = "saveProduct()">
+              Save
+            </button>
+          </span>
+          <span>&nbsp;
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    [routerLink] = "['/products']">
+              Cancel
+            </button>
+          </span>
+          <span>&nbsp;
+            <button class="btn btn-outline-warning"
+                    type="button" (click)="deleteProduct()">
+              Delete
+            </button>
+          </span>
+        </div>
+    </div>
+    <div class="alert alert-danger"
+        *ngIf="errorMessage">{{errorMessage}}
+    </div>
+  </div>  
+</div>

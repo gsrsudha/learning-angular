@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, AbstractControl, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IProduct, ProductResolved } from './product';
-import { ProductService } from './product.service';
+import { IProduct, ProductResolved } from '../product';
+import { ProductService } from '../product.service';
 
 function ratingRange(min: number, max: number) : ValidatorFn{
   return (c: AbstractControl): {[key: string]: boolean} | null => {

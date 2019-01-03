@@ -62,7 +62,7 @@
                         <pm-star [rating] = 'product.starRating' 
                                  (ratingClicked) = 'onRatingClicked($event)'></pm-star> <!--[]property binding && ()event binding--> 
                     </td>
-                    <td><button class="btn btn-primary" [routerLink]="['/productEdit', product.id]">Edit</button></td>
+                    <td><button class="btn btn-primary" [routerLink]="[product.id, 'edit']">Edit</button></td>
                 </tr>
             </tbody>
         </table>

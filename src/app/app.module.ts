@@ -8,7 +8,6 @@ import { PageNotfoundComponent } from './home/page-notfound.component';
 import { ProductModule } from './products/product.module';
 import { AppRoutingModule } from './/app-routing.module';
 
-
 @NgModule({
   declarations: [
     AppComponent, WelcomeComponent, PageNotfoundComponent
