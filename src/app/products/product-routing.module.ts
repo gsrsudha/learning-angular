@@ -15,29 +15,37 @@ import { ProductEditTagsComponent } from './product-edit/product-edit-tags.compo
     CommonModule,
     RouterModule.forChild([
       {
-        path:'products', 
-        component: ProductListComponent
-      },
-      {
-        path: 'products/:id', 
-        // canActivate: [ProductDetailGuard], NOT REQUIRED FOR ROUTING COURSE
-        component: ProductDetailComponent,
-        resolve: {product: ProductResolverService}
-      },
-      {
-        path: 'products/:id/edit', 
-        // canDeactivate: [ProductEditGuard], NOT REQUIRED FOR ROUTING COURSE
-        component: ProductEditComponent,
-        resolve: {product: ProductResolverService},
-        children: [
+        path:'products',         
+        children: [  
+          /*start of component less route */
           {
-            path: '', redirectTo: 'info', pathMatch: 'full'
+            path: '',
+            component: ProductListComponent
+          },   
+          /*end of component less route */
+          //grouping routes  
+          {
+            path: ':id', 
+            // canActivate: [ProductDetailGuard], NOT REQUIRED FOR ROUTING COURSE
+            component: ProductDetailComponent,
+            resolve: {product: ProductResolverService}
           },
           {
-            path: 'info', component: ProductEditInfoComponent
-          },
-          {
-            path: 'tags', component: ProductEditTagsComponent
+            path: ':id/edit', 
+            // canDeactivate: [ProductEditGuard], NOT REQUIRED FOR ROUTING COURSE
+            component: ProductEditComponent,
+            resolve: {product: ProductResolverService},
+            children: [
+              {
+                path: '', redirectTo: 'info', pathMatch: 'full'
+              },
+              {
+                path: 'info', component: ProductEditInfoComponent
+              },
+              {
+                path: 'tags', component: ProductEditTagsComponent
+              }
+            ]
           }
         ]
       }
