@@ -10,7 +10,7 @@ import { IProduct } from "./product";
 })
 export class ProductService {
     private productUrl = 'api/products'; //or baseUrl
-
+    
     constructor(private http: HttpClient) {}
 
     getProducts() : Observable<IProduct[]> {
@@ -73,9 +73,9 @@ export class ProductService {
       if (err.error instanceof ErrorEvent) {
         errorMessage = `An error occured: ${err.error.message}`;
       } else {
-        errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+        errorMessage = `Server returned code: ${err.status}, error message is: ${err.name}`;
       }
-      console.error(errorMessage);
+      console.log(errorMessage);
       return throwError(errorMessage);
     }
 

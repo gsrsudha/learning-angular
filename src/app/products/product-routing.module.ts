@@ -6,6 +6,7 @@ import { ProductDetailGuard } from './product-detail.guard';
 import { ProductDetailComponent } from './product-detail.component';
 import { ProductEditComponent } from './product-edit.component';
 import { ProductEditGuard } from './product-edit.guard';
+import { ProductResolverService } from './product-resolver.service';
 
 @NgModule({
   imports: [
@@ -14,10 +15,12 @@ import { ProductEditGuard } from './product-edit.guard';
       {path:'products', component: ProductListComponent},
       {path: 'products/:id', 
         canActivate: [ProductDetailGuard],
-        component: ProductDetailComponent},
+        component: ProductDetailComponent,
+        resolve: {product: ProductResolverService}},
       {path: 'productEdit/:id', 
         canDeactivate: [ProductEditGuard],
-        component: ProductEditComponent}
+        component: ProductEditComponent,
+        resolve: {product: ProductResolverService}}
     ])
   ],
   declarations: [],
