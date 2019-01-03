@@ -20,13 +20,13 @@ import { ProductEditTagsComponent } from './product-edit/product-edit-tags.compo
       },
       {
         path: 'products/:id', 
-        canActivate: [ProductDetailGuard],
+        // canActivate: [ProductDetailGuard], NOT REQUIRED FOR ROUTING COURSE
         component: ProductDetailComponent,
         resolve: {product: ProductResolverService}
       },
       {
         path: 'products/:id/edit', 
-        canDeactivate: [ProductEditGuard],
+        // canDeactivate: [ProductEditGuard], NOT REQUIRED FOR ROUTING COURSE
         component: ProductEditComponent,
         resolve: {product: ProductResolverService},
         children: [
