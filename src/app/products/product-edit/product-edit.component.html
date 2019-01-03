@@ -5,8 +5,8 @@
 
   <div class="card-body">
     <div class="wizard">
-      <a [routerLink] = "['info']">Basic Information</a>
-      <a [routerLink] = "['info']">Search Tags</a>
+      <a [routerLink] = "['info']">Basic Information</a> <!--Relative path-->
+      <a [routerLink] = "['tags']">Search Tags</a><!-- Activating child routes  -->
     </div>
   
     <router-outlet></router-outlet>

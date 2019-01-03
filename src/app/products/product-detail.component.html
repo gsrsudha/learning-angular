@@ -59,7 +59,9 @@
             (click) = 'onBack()'
             style="width:80px">
           <i class="fa fa-chevron-left"></i> Back
-    </button>
+    </button>&nbsp;
+    <button class="btn btn-outline-primary" [routerLink]="['/products', product.id, 'edit']"> <!--Absolute path-->
+        Edit</button>
   </div>
 </div>
 </div>

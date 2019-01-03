@@ -20,7 +20,7 @@ export class ProductEditInfoComponent implements OnInit {
         this.productForm.reset();
       }
 
-      this.product = data['resolvedData'].product;
+      this.product = data['product'].product;
     });
   }
 }
