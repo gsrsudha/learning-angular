@@ -18,9 +18,14 @@ export class ProductDetailComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    const resolvedData: ProductResolved = this.route.snapshot.data['product'] ;
-    this.errorMessage = resolvedData.error;
-    this.displayProduct(resolvedData.product);
+    //changed to route resolved data using observable
+    this.route.data.subscribe(
+      data => { 
+        const resolvedData: ProductResolved = this.product = data['product'];
+        this.errorMessage = resolvedData.error;
+        this.displayProduct(resolvedData.product);
+      }
+    );  
   }
 
   displayProduct(product: IProduct): void {

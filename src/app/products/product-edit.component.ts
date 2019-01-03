@@ -44,22 +44,19 @@ export class ProductEditComponent implements OnInit {
       tags: this.fb.array([]),
       description: '' 
     });
-
-    // read the product Id from the route parameter
-    // this.sub = this.route.params.subscribe(
-    //   params => {
-    //     let id = +params['id'];
-    //     this.getProduct(id);
-    //   }
-    // );
-    //changed to route resolved data
-    const resolvedData: ProductResolved = this.route.snapshot.data['product'] ;
-    this.errorMessage = resolvedData.error;
-    this.displayProduct(resolvedData.product);
+    
+    //changed to route resolved data using observable
+    this.route.data.subscribe(
+      data => { 
+        const resolvedData: ProductResolved = this.product = data['product'];
+        this.errorMessage = resolvedData.error;
+        this.displayProduct(resolvedData.product);
+      }
+    );  
   }
  
   ngOnDestroy(): void {
-    // this.sub.unsubscribe();
+    // this.sub.unsubscribe(); --- this is throwing error of undefined
   }
 
   addTag(): void {
