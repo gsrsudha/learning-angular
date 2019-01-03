@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'; 
 import { IProduct } from './product';
 import { ProductService } from './product.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({ 
   selector: 'pm-products', 
   templateUrl: './product-list.component.html',
@@ -26,7 +27,8 @@ export class ProductListComponent implements OnInit{
     filteredProducts: IProduct[];
     products: IProduct[] = [];
 
-    constructor(private productService: ProductService) {
+    constructor(private productService: ProductService,
+                private route: ActivatedRoute) {
     }
     
     onRatingClicked(message: string): void {
@@ -44,10 +46,12 @@ export class ProductListComponent implements OnInit{
     }
 
     ngOnInit(): void {
+        this.listFilter = this.route.snapshot.queryParamMap.get('filterBy') || '';
+        this.showImage = this.route.snapshot.queryParamMap.get('showImage') === 'true';
         this.productService.getProducts().subscribe(
             products => {
                 this.products = products,
-                this.filteredProducts = this.products;
+                this.filteredProducts = this.performFilter(this.listFilter);
             },
             error => this.errorMessage = <any>error           
         );

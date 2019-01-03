@@ -50,7 +50,11 @@
                         <!--or use interpolation as follow
                         <img src='http://openclipart.org/{{product.imageUrl}}'>-->
                     </td>
-                    <td><a [routerLink]="['/products', product.id]">{{product.productName}}</a></td>
+                    <td>
+                        <a [routerLink]="['/products', product.id]"
+                            [queryParams] = "{filterBy: listFilter, showImage: showImage}"
+                        >{{product.productName}}</a>
+                    </td>
                     <td>{{product.productCode | lowercase | convertToSpaces: '-'}}</td>
                     <td>{{product.releaseDate}}</td>
                     <td>{{product.price | currency}}</td><!--or currency:'USD':'symbol':'1.2-2'-->

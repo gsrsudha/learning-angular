@@ -33,6 +33,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onBack(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/products'],
+      {
+        queryParamsHandling: 'preserve'
+      }
+    );
   }
 }
