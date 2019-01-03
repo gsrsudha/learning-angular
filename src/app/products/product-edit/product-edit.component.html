@@ -5,8 +5,12 @@
 
   <div class="card-body">
     <div class="wizard">
-      <a [routerLink] = "['info']">Basic Information</a> <!--Relative path-->
-      <a [routerLink] = "['tags']">Search Tags</a><!-- Activating child routes  -->
+      <a [routerLink] = "['info']" routerLinkActive="active">
+        Basic Information<span [ngClass]="{'fa fa-exclamation': !isValid('info')}"></span>
+      </a> <!--Relative path-->
+      <a [routerLink] = "['tags']" routerLinkActive="active">
+        Search Tags<span [ngClass]="{'fa fa-exclamation': !isValid('tags')}"></span>
+      </a><!-- Activating child routes  -->
     </div>
   
     <router-outlet></router-outlet>

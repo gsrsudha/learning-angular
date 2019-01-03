@@ -9,9 +9,13 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand">{{pageTitle}}</a>
   <ul class="nav nav-pills">
-    <li><a class="nav-link" [routerLink]="['/welcome']">Home</a></li>
-    <li><a class="nav-link" [routerLink]="['/products']">Product List</a></li>
-    <li><a class="nav-link" [routerLink]="['/products', 0, 'edit']">Add Product</a></li>
+    <li><a class="nav-link" [routerLink]="['/welcome']" routerLinkActive="active">Home</a></li>
+    <li><a class="nav-link" 
+      [routerLink]="['/products']" 
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+      Product List</a></li>
+    <li><a class="nav-link" [routerLink]="['/products', 0, 'edit']" routerLinkActive="active">Add Product</a></li>
   </ul>
 </nav>
 <div class="container">

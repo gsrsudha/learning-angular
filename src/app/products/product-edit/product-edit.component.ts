@@ -135,7 +135,8 @@ export class ProductEditComponent implements OnInit {
 
   reset(): void {
     this.dataIsValid = null;
-    this.productForm = null;   
+    this.currentProduct = null; 
+    this.originalProduct = null;  
   }
 
   saveProduct() {
