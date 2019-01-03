@@ -73,9 +73,9 @@ export class ProductService {
       if (err.error instanceof ErrorEvent) {
         errorMessage = `An error occured: ${err.error.message}`;
       } else {
-        errorMessage = `Server returned code: ${err.status}, error message is: ${err.name}`;
+        errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
       }
-      console.log(errorMessage);
+      console.error(errorMessage);
       return throwError(errorMessage);
     }
 

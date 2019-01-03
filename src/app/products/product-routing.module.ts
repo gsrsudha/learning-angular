@@ -14,11 +14,11 @@ import { ProductResolverService } from './product-resolver.service';
     RouterModule.forChild([
       {path:'products', component: ProductListComponent},
       {path: 'products/:id', 
-        canActivate: [ProductDetailGuard],
+        // canActivate: [ProductDetailGuard],
         component: ProductDetailComponent,
         resolve: {product: ProductResolverService}},
       {path: 'productEdit/:id', 
-        canDeactivate: [ProductEditGuard],
+        //canDeactivate: [ProductEditGuard],
         component: ProductEditComponent,
         resolve: {product: ProductResolverService}}
     ])

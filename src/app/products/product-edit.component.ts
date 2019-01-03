@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, AbstractControl, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IProduct } from './product';
+import { IProduct, ProductResolved } from './product';
 import { ProductService } from './product.service';
 
 function ratingRange(min: number, max: number) : ValidatorFn{
@@ -46,16 +46,20 @@ export class ProductEditComponent implements OnInit {
     });
 
     // read the product Id from the route parameter
-    this.sub = this.route.params.subscribe(
-      params => {
-        let id = +params['id'];
-        this.getProduct(id);
-      }
-    );
+    // this.sub = this.route.params.subscribe(
+    //   params => {
+    //     let id = +params['id'];
+    //     this.getProduct(id);
+    //   }
+    // );
+    //changed to route resolved data
+    const resolvedData: ProductResolved = this.route.snapshot.data['product'] ;
+    this.errorMessage = resolvedData.error;
+    this.displayProduct(resolvedData.product);
   }
  
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 
   addTag(): void {
@@ -81,20 +85,23 @@ export class ProductEditComponent implements OnInit {
     }
     this.product = product;
 
-    if(this.product.id === 0) {
-      this.pageTitle = 'Add Product';
+    if (!this.product) {
+      this.pageTitle = 'No product found';
     } else {
-      this.pageTitle = `Edit Product : ${this.product.productName}`;
-    }
-
-    //update the data on the form
-    this.productForm.patchValue({
-      productName: this.product.productName,
-      productCode: this.product.productCode,
-      description: this.product.description,
-      starRating: this.product.starRating
-    });
-    this.productForm.setControl('tags', this.fb.array(this.product.tags || []));
+      if (this.product.id === 0) {
+        this.pageTitle = 'Add Product';
+      } else {
+        this.pageTitle = `Edit Product: ${this.product.productName}`;
+        //update the data on the form
+        this.productForm.patchValue({
+          productName: this.product.productName,
+          productCode: this.product.productCode,
+          description: this.product.description,
+          starRating: this.product.starRating
+        });
+        this.productForm.setControl('tags', this.fb.array(this.product.tags || []));
+      }
+    }   
   }
 
   editProduct(product: IProduct): void {

@@ -18,7 +18,7 @@ export class ProductResolverService implements Resolve<ProductResolved>{
     //Resolver Error Handling -- using resolved data
     if(isNaN(+id)) {
       const message = `Product id was not a number: ${id}`;
-      console.error(message); 
+      console.log(message); 
       return of({ product: null, error: message});
     }  
     return this.productService.getProduct(+id)
