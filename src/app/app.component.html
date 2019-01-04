@@ -18,6 +18,7 @@
     <li><a class="nav-link" [routerLink]="['/products', 0, 'edit']" routerLinkActive="active">Add Product</a></li>
   </ul>
 </nav>
-<div class="container">
-  <router-outlet></router-outlet>
+<div class="container"
+      [@slideInAnimation]="o.isActivated ? o.activatedRoute : ''">
+  <router-outlet #o="outlet"></router-outlet>
 </div>
