@@ -21,7 +21,7 @@ import { ProductEditTagsComponent } from './product-edit/product-edit-tags.compo
     SharedModule,
     ProductRoutingModule,
     ReactiveFormsModule,
-    InMemoryWebApiModule.forRoot(ProductData)
+    InMemoryWebApiModule.forRoot(ProductData, {delay: 10})
   ],
   declarations: [
     ProductListComponent,
