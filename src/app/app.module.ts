@@ -8,6 +8,8 @@ import { WelcomeComponent } from './home/welcome.component';
 import { PageNotfoundComponent } from './home/page-notfound.component';
 import { ProductModule } from './products/product.module';
 import { AppRoutingModule } from './/app-routing.module';
+import { MessagesModule } from './messages/messages.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,12 @@ import { AppRoutingModule } from './/app-routing.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,   
+    HttpClientModule, 
+    UserModule,  
     ProductModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MessagesModule
+    
   ],
   bootstrap: [AppComponent]  
 })
