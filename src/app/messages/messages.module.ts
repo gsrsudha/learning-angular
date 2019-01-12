@@ -1,10 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
+import { MessagesComponent } from './messages.component';
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild([
+      {
+        path: 'messages',
+        component: MessagesComponent,
+        outlet: 'popup'
+      }
+    ])
   ],
-  declarations: []
+  declarations: [MessagesComponent]
 })
 export class MessagesModule { }

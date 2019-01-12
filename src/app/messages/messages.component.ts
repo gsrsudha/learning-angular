@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { MessagesService } from './messages.service';
 
 @Component({
-  templateUrl: './message.component.html',
+  templateUrl: './messages.component.html',
   styles: [
     '.message-row { margin-bottom: 10px }'
   ]
 })
-export class MessageComponent {
+export class MessagesComponent {
   get messages() {
     return this.messageService.messages;
   }
