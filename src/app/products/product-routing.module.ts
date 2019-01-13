@@ -20,7 +20,8 @@ import { AuthGuard } from '../user/auth.guard';
           
           {
             path: '',
-            component: ProductListComponent
+            component: ProductListComponent,
+            resolve: { resolvedProducts: ProductlistResolverService }
           },   
           {
             path: ':id', 
