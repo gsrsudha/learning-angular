@@ -36,9 +36,9 @@ import { AuthGuard } from '../user/auth.guard';
           },
           {
             path: ':id/edit', 
-            // canDeactivate: [ProductEditGuard], NOT REQUIRED FOR ROUTING COURSE
             component: ProductEditComponent,
             resolve: {product: ProductResolverService},
+            canDeactivate: [ProductEditGuard],
             children: [
               {
                 path: '', redirectTo: 'info', pathMatch: 'full'

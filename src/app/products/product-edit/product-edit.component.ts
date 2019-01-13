@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IProduct, ProductResolved } from '../product';
 import { ProductService } from '../product.service';
+import { MessagesService } from 'src/app/messages/messages.service';
 
 function ratingRange(min: number, max: number) : ValidatorFn{
   return (c: AbstractControl): {[key: string]: boolean} | null => {
@@ -49,7 +50,8 @@ export class ProductEditComponent implements OnInit {
   constructor(private fb: FormBuilder, 
               private route: ActivatedRoute,
               private router: Router,
-              private productService: ProductService) { }
+              private productService: ProductService,
+              private messageService: MessagesService) { }
  
   ngOnInit() {
     this.productForm = this.fb.group({
@@ -176,10 +178,10 @@ export class ProductEditComponent implements OnInit {
 
   onSaveComplete(message?: string): void{
     if (message) {
-      console.log(message);
+      this.messageService.addMessage(message);
     }
     //reset the form to clear the flags
-    this.reset();
+    this.reset(); //to not activate the canDeactivate guard on saveProduct
 
     this.router.navigate(['/products']);
   }
@@ -188,21 +190,23 @@ export class ProductEditComponent implements OnInit {
     // Clear the validation object
     this.dataIsValid = {};
 
-    // 'info' tab
-    if (this.product.productName &&
-      this.product.productName.length >= 3 &&
-      this.product.productCode) {
-      this.dataIsValid['info'] = true;
-    } else {
-      this.dataIsValid['info'] = false;
-    }
+    if(this.product) {
+      // 'info' tab
+      if (this.product.productName &&
+        this.product.productName.length >= 3 &&
+        this.product.productCode) {
+        this.dataIsValid['info'] = true;
+      } else {
+        this.dataIsValid['info'] = false;
+      }
 
-    // 'tags' tab
-    if (this.product.category &&
-      this.product.category.length >= 3) {
-      this.dataIsValid['tags'] = true;
-    } else {
-      this.dataIsValid['tags'] = false;
+      // 'tags' tab
+      if (this.product.category &&
+        this.product.category.length >= 3) {
+        this.dataIsValid['tags'] = true;
+      } else {
+        this.dataIsValid['tags'] = false;
+      }
     }
   }
 }
