@@ -10,6 +10,8 @@ import { ProductModule } from './products/product.module';
 import { AppRoutingModule } from './/app-routing.module';
 import { MessagesModule } from './messages/messages.module';
 import { UserModule } from './user/user.module';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ProductData } from './products/product-data';
 
 @NgModule({
   declarations: [
@@ -19,11 +21,10 @@ import { UserModule } from './user/user.module';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule, 
-    UserModule,  
-    ProductModule,
+    InMemoryWebApiModule.forRoot(ProductData, {delay: 10}),
+    UserModule,    
     AppRoutingModule,
-    MessagesModule
-    
+    MessagesModule    
   ],
   bootstrap: [AppComponent]  
 })

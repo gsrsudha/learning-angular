@@ -16,18 +16,12 @@ import { AuthGuard } from '../user/auth.guard';
   imports: [
     CommonModule,
     RouterModule.forChild([
-      {
-        path:'products',     
-        canActivate: [AuthGuard],    
-        children: [  
-          /*start of component less route */
+      
+          
           {
             path: '',
-            component: ProductListComponent,
-            resolve: {resolvedProducts: ProductlistResolverService}
+            component: ProductListComponent
           },   
-          /*end of component less route */
-          //grouping routes  
           {
             path: ':id', 
             // canActivate: [ProductDetailGuard], NOT REQUIRED FOR ROUTING COURSE
@@ -51,8 +45,7 @@ import { AuthGuard } from '../user/auth.guard';
               }
             ]
           }
-        ]
-      }
+        
     ])
   ],
   declarations: [],

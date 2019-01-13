@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ProductData } from './product-data';
-
 import { ProductListComponent } from './product-list.component';
 import { ProductDetailComponent } from './product-detail.component';
 import { ConvertToSpacesPipe } from '../shared/convert-to-spaces.pipe';
@@ -18,10 +15,9 @@ import { ProductEditTagsComponent } from './product-edit/product-edit-tags.compo
 
 @NgModule({
   imports: [    
-    SharedModule,
-    ProductRoutingModule,
+    SharedModule,  
     ReactiveFormsModule,
-    InMemoryWebApiModule.forRoot(ProductData, {delay: 10})
+    ProductRoutingModule   
   ],
   declarations: [
     ProductListComponent,

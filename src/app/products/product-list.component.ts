@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'; 
 import { IProduct, ProductsResolved } from './product';
 import { ActivatedRoute } from '@angular/router';
+import { ProductService } from './product.service';
 
 @Component({ 
   templateUrl: './product-list.component.html',
@@ -25,7 +26,8 @@ export class ProductListComponent implements OnInit{
     filteredProducts: IProduct[];
     products: IProduct[] = [];
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute,
+                private productService: ProductService) {
     }
     
     onRatingClicked(message: string): void {
@@ -45,23 +47,23 @@ export class ProductListComponent implements OnInit{
     ngOnInit(): void {
         this.listFilter = this.route.snapshot.queryParamMap.get('filterBy') || '';
         this.showImage = this.route.snapshot.queryParamMap.get('showImage') === 'true';
-        // this.productService.getProducts().subscribe(
-        //     products => {
-        //         this.products = products,
-        //         this.filteredProducts = this.performFilter(this.listFilter);
-        //     },
-        //     error => this.errorMessage = <any>error           
-        // );
+        this.productService.getProducts().subscribe(
+            products => {
+                this.products = products,
+                this.filteredProducts = this.performFilter(this.listFilter);
+            },
+            error => this.errorMessage = <any>error           
+        );
 
         //changed to route resolved data using observable
-        this.route.data.subscribe(
-        data => { 
-            const resolvedData: ProductsResolved = data['resolvedProducts'];
-            this.products = resolvedData.products;
-            this.filteredProducts = this.performFilter(this.listFilter);
-            this.errorMessage = resolvedData.error;
-        }
-      );  
+    //     this.route.data.subscribe(
+    //     data => { 
+    //         const resolvedData: ProductsResolved = data['resolvedProducts'];
+    //         this.products = resolvedData.products;
+    //         this.filteredProducts = this.performFilter(this.listFilter);
+    //         this.errorMessage = resolvedData.error;
+    //     }
+    //   );  
         //this.filteredProducts = this.products; moved to subscriber method
     }
 }
